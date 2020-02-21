@@ -19,7 +19,6 @@ public class NetworkUtils {
                 .build();
         Log.d("123",request.toString());
         Response response = mHTTPClient.newCall(request).execute();
-        Log.d("123",response.toString());
         try {
             return response.body().string();
         } finally {
