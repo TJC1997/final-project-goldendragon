@@ -13,9 +13,11 @@ import java.util.List;
 public class gameAsyncTask extends AsyncTask<String, Void, String> {
 
     private Callback mCallback;
+    private int type;
 
     public interface Callback{
-        void resultReceived(List<GameListItem> forecastItems);
+        void resultReceived(List<GameListItem> gameResults);
+        void streamerReceived(List<StreamerListItem> streamerResults);
     }
 
     public gameAsyncTask(Callback callback){
@@ -26,22 +28,38 @@ public class gameAsyncTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         String id = params[0];
         String request=params[1];
+        String requestType=params[2];
         String gameJSON = "ABC";
-        try {
-            gameJSON = NetworkUtils.doHTTPGet(id,request);
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if(requestType.equals("Get_Top_Game")){
+            type=1;
+            try {
+                gameJSON = NetworkUtils.doHTTPGet(id,request);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(requestType.equals("Get_Stream_info")){
+            type=2;
+            try {
+                gameJSON = NetworkUtils.doHTTPGet(id,request);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return gameJSON;
     }
 
     @Override
     protected void onPostExecute(String s) {
-//            TextView test= findViewById(R.id.test);
-//            Log.d("123",s);
-//            test.setText(s);
-        ArrayList<GameListItem> results= TwitchUtils.parseGameJson(s);
-        Log.d("123",Integer.toString(results.get(0).id));
-        mCallback.resultReceived(results);
+        if(type==1) {
+            ArrayList<GameListItem> results = TwitchUtils.parseGameJson(s);
+//            Log.d("123", Integer.toString(results.get(0).id));
+            mCallback.resultReceived(results);
+        }
+        else if(type==2){
+            ArrayList<StreamerListItem> results=TwitchUtils.parseStreamerJson(s);
+            mCallback.streamerReceived(results);
+        }
     }
 }
