@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.getsumgame.data.GameInfo;
 import com.example.getsumgame.data.GameListItem;
 import com.example.getsumgame.data.GameListResult;
 import com.example.getsumgame.data.Status;
@@ -56,12 +57,14 @@ public class MainActivity extends AppCompatActivity
         mGameItemsRV.setLayoutManager(new LinearLayoutManager(this));
         mGameItemsRV.setHasFixedSize(true);
 
-        mViewmodel.getmGameResult().observe(this, new Observer<List<GameListItem>>() {
+        mViewmodel.getmGameInfo().observe(this, new Observer<List<GameInfo>>() {
             @Override
-            public void onChanged(List<GameListItem> items) {
-                mGameAdapter.updateGameData(items);
+            public void onChanged(List<GameInfo> gameInfos) {
+//                Log.d("txtid",Integer.toString(gameInfos.size()));
+                mGameAdapter.updateGameData(gameInfos);
             }
         });
+
 
         mViewmodel.getmLoadingStatus().observe(this, new Observer<Status>() {
             @Override
@@ -81,29 +84,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-//    public class gameAsyncTask extends AsyncTask<String, Void, String> {
-//        @Override
-//        protected String doInBackground(String... params) {
-//            String id = params[0];
-//            String request=params[1];
-//            String gameJSON = "ABC";
-//            try {
-//                gameJSON = NetworkUtils.doHTTPGet(id,request);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            return gameJSON;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-////            TextView test= findViewById(R.id.test);
-////            Log.d("123",s);
-////            test.setText(s);
-//            ArrayList<GameListItem> results= TwitchUtils.parseGameJson(s);
-//            Log.d("123",results.get(0).name);
-//        }
-//    }
 
     @Override
     public void onClick(View view)

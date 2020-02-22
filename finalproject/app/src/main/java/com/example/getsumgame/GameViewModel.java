@@ -1,8 +1,10 @@
 package com.example.getsumgame;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.getsumgame.data.GameInfo;
 import com.example.getsumgame.data.GameListItem;
 import com.example.getsumgame.data.Status;
 import com.example.getsumgame.data.gameRepository;
@@ -12,12 +14,15 @@ import java.util.List;
 
 public class GameViewModel extends ViewModel {
     private gameRepository mRepo;
-    private LiveData<List<GameListItem>> mGameResult;
+    private LiveData<List<GameInfo>> mGameInfo;
+//    private LiveData<List<GameListItem>> mGameResult;
     private LiveData<Status> mLoadingStatus;
+
 
     public GameViewModel(){
         mRepo=new gameRepository();
-        mGameResult=mRepo.getmGameResult();
+//        mGameResult=mRepo.getmGameResult();
+        mGameInfo=mRepo.getmGameInfo();
         mLoadingStatus=mRepo.getmLoadingStatus();
     }
 
@@ -29,8 +34,13 @@ public class GameViewModel extends ViewModel {
         return mLoadingStatus;
     }
 
-    public LiveData<List<GameListItem>> getmGameResult() {
-        return mGameResult;
+    public LiveData<List<GameInfo>> getmGameInfo() {
+        return mGameInfo;
     }
+    //    public LiveData<List<GameListItem>> getmGameResult() {
+//        return mGameResult;
+//    }
+
+
 }
 

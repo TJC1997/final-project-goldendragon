@@ -2,6 +2,8 @@ package com.example.getsumgame.utils;
 
 import com.example.getsumgame.data.GameListItem;
 import com.example.getsumgame.data.GameListResult;
+import com.example.getsumgame.data.StreamerListItem;
+import com.example.getsumgame.data.StreamerListResult;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -23,6 +25,17 @@ public class TwitchUtils {
     public static ArrayList<GameListItem>parseGameJson(String gameJson){
         Gson gson = new Gson();
         GameListResult gameResults=gson.fromJson(gameJson,GameListResult.class);
+        if (gameResults!=null && gameResults.data!=null){
+            return gameResults.data;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public static ArrayList<StreamerListItem>parseStreamerJson(String StreamerJson){
+        Gson gson = new Gson();
+        StreamerListResult gameResults=gson.fromJson(StreamerJson,StreamerListResult.class);
         if (gameResults!=null && gameResults.data!=null){
             return gameResults.data;
         }
