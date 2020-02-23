@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     private TextView mLoadingErrorMessageTV;
     private GameViewModel mViewmodel;
     private GameAdapter mGameAdapter;
+    private LinearLayout mainLayout;
 
 
     @Override
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity
         get_game_button.setOnClickListener(this);
         CLIENT_ID=TwitchUtils.getClientId();
         Get_Top_Game=TwitchUtils.getGet_Top_Game();
+
+        mainLayout = findViewById(R.id.get_main_layout);
 
         mGameAdapter=new GameAdapter();
         mGameItemsRV=findViewById(R.id.rv_game_items);
@@ -90,6 +95,7 @@ public class MainActivity extends AppCompatActivity
     {
         switch (view.getId()) {
             case R.id.get_game_button:
+                mainLayout.setBackgroundColor(Color.WHITE);
                 mViewmodel.loadGameResults(CLIENT_ID,Get_Top_Game);
 
 //                new gameAsyncTask().execute(CLIENT_ID,Get_Top_Game);

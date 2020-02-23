@@ -2,9 +2,11 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/get_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/wallpaper"
     tools:context=".MainActivity">
 
     <Button
@@ -12,11 +14,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="GetSumGame"
-        android:textColor="#1f97ed"
-        android:background="#ede185"
+        android:textColor="#ffffff"
+        android:background="@drawable/custom_button1"
         android:textStyle="bold"
         android:textSize="25sp"
         android:layout_gravity="center_horizontal"
+
         />
 
     <FrameLayout
