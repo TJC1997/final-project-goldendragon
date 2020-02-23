@@ -10,11 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/iv_weather_icon"-->
-<!--            android:padding="8dp"-->
-<!--            android:layout_width="72dp"-->
-<!--            android:layout_height="72dp" />-->
+        <ImageView
+            android:id="@+id/iv_game_icon"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/just_chatting"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -25,13 +26,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <!-- <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textSize="20sp"
-                    android:text="Game_Name: "
-                    android:textColor="#000"/>
+                    android:textSize="15sp"
+                    android:text="Game Name: "
+                    android:textStyle="bold"
+                    android:textColor="#000"/> -->
 
                 <TextView
                     android:id="@+id/game_name"
@@ -39,6 +41,8 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:textColor="#000"/>
             </LinearLayout>
 
@@ -51,8 +55,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textSize="20sp"
-                    android:text="Game_ID: "
+                    android:textSize="15sp"
+                    android:text="Game ID: "
                     android:textColor="#000"/>
 
                 <TextView
@@ -60,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textColor="#000"/>
             </LinearLayout>
 
@@ -72,8 +76,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textSize="20sp"
-                    android:text="Streamer_Number: "
+                    android:textSize="15sp"
+                    android:text="Streamer Number: "
                     android:textColor="#000"/>
 
                 <TextView
@@ -81,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout android:orientation="horizontal"
@@ -92,8 +96,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textSize="20sp"
-                    android:text="View_Number: "
+                    android:textSize="15sp"
+                    android:text="View Number: "
                     android:textColor="#000"/>
 
                 <TextView
@@ -101,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
         </LinearLayout>
