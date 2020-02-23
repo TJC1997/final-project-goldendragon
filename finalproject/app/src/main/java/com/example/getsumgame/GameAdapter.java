@@ -1,10 +1,12 @@
 package com.example.getsumgame;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +53,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
         private TextView mStreamerNumberTV;
         private TextView mViewNumberTV;
         private TextView mGameIdTV;
+        private ImageView mGameIcon;
 
         public GameItemViewHolder(View ItemView){
             super(ItemView);
@@ -58,6 +61,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
             mStreamerNumberTV=ItemView.findViewById(R.id.streamer_number);
             mViewNumberTV=ItemView.findViewById(R.id.view_number);
             mGameIdTV=ItemView.findViewById(R.id.game_id);
+            mGameIcon=ItemView.findViewById(R.id.iv_game_icon);
         }
         public void bind(GameInfo gameItem){
             String name=gameItem.Game_name;
@@ -68,6 +72,59 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
             mStreamerNumberTV.setText(streamer_count);
             mViewNumberTV.setText(viewer_count);
             mGameIdTV.setText(id);
+            setup_icon(name);
+        }
+
+        public void setup_icon(String name){
+            switch(name){
+                case "League of Legends":
+                    mGameIcon.setImageResource(R.drawable.league_of_legend);
+                    break;
+                case "Just Chatting":
+                    mGameIcon.setImageResource(R.drawable.just_chatting);
+                    break;
+                case "Counter-Strike: Global Offensive":
+                    mGameIcon.setImageResource(R.drawable.csgo);
+                    break;
+                case "Escape From Tarkov":
+                    mGameIcon.setImageResource(R.drawable.escape_from_tarkov);
+                    break;
+                case "Fortnite":
+                    mGameIcon.setImageResource(R.drawable.fortnite);
+                    break;
+                case "Grand Theft Auto V":
+                    mGameIcon.setImageResource(R.drawable.grand_theft_v);
+                    break;
+                case "Hearthstone":
+                    mGameIcon.setImageResource(R.drawable.hearthstone);
+                    break;
+                case "Apex Legends":
+                    mGameIcon.setImageResource(R.drawable.apex_legends);
+                    break;
+                case "Dota 2":
+                    mGameIcon.setImageResource(R.drawable.dota2);
+                    break;
+                case "PLAYERUNKNOWN'S BATTLEGROUNDS":
+                    mGameIcon.setImageResource(R.drawable.pubg);
+                    break;
+                case "World of Warcraft":
+                    mGameIcon.setImageResource(R.drawable.world_of_warcraft);
+                    break;
+                case "Overwatch":
+                    mGameIcon.setImageResource(R.drawable.overwatch);
+                    break;
+                case "Minecraft":
+                    mGameIcon.setImageResource(R.drawable.minecraft);
+                    break;
+                case "Call of Duty: Modern Warfare":
+                    mGameIcon.setImageResource(R.drawable.call_of_duty);
+                    break;
+                case "Tom Clancy's Rainbow Six: Siege":
+                    mGameIcon.setImageResource(R.drawable.rainbow_six);
+                    break;
+                default:
+                    mGameIcon.setImageResource(R.drawable.unknown_icon);
+            }
         }
     }
 }
