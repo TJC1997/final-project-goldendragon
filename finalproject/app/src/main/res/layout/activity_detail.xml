@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="1dp">
+
+        <TextView
+            android:id="@+id/detail_streamer_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/header_text_size"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/streamer_name"/>
+
+        <TextView
+            android:id="@+id/detail_game_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/subheader_text_size"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/game_name"/>
+
+        <FrameLayout
+            android:id="@+id/detail_preview_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/detail_rating_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/default_text_size"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/game_rating"/>
+
+        <TextView
+            android:id="@+id/detail_stream_span_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/default_text_size"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/stream_span" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GetSumGame</string>
+
+    <!-- Names for the Detail Activity App Default Values -->
+    <string name="streamer_name">Streamer Name</string>
+    <string name="game_name">Game Name</string>
+    <string name="game_rating">Game Rating</string>
+    <string name="stream_span">Already Streaming xx Hours</string>
 </resources>
