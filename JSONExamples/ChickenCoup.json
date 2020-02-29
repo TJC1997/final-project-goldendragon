@@ -1,0 +1,25 @@
+{
+    "query": "\/rest\/games\/Hollow%20Knight",
+    "executionTime": 2.80481,
+    "result": {
+        "title": "Hollow Knight",
+        "releaseDate": "Feb 24, 2017",
+        "description": "Hollow Knight is a 2D action-adventure game with an emphasis on traditional 2D animation and skillful gameplay. Journey to Hallownest, a vast and ancient underground kingdom inhabited by a bizarre collection of insects and monsters. Players will forge their own path as they explore ruined Hollow Knight is a 2D action-adventure game with an emphasis on traditional 2D animation and skillful gameplay. Journey to Hallownest, a vast and ancient underground kingdom inhabited by a bizarre collection of insects and monsters. Players will forge their own path as they explore ruined cities, forests of fungus, temples of bone and other fantastic lands, all on their way to uncovering an ancient mystery. &hellip;  Expand",
+        "genre": [
+            "Action Adventure",
+            "General"
+        ],
+        "image": "https:\/\/static.metacritic.com\/images\/products\/games\/4\/d4d3032660ea1a0552c985031b9798b5-98.jpg",
+        "score": 87,
+        "developer": "Team Cherry",
+        "publisher": [
+            "Team Cherry"
+        ],
+        "rating": "E10+",
+        "alsoAvailableOn": [
+            "PlayStation 4",
+            "Switch",
+            "Xbox One"
+        ]
+    }
+}

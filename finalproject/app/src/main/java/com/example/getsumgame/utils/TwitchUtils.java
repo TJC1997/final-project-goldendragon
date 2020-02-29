@@ -1,9 +1,9 @@
 package com.example.getsumgame.utils;
 
-import com.example.getsumgame.data.GameListItem;
-import com.example.getsumgame.data.GameListResult;
-import com.example.getsumgame.data.StreamerListItem;
-import com.example.getsumgame.data.StreamerListResult;
+import com.example.getsumgame.models.GameListItem;
+import com.example.getsumgame.models.GameListResult;
+import com.example.getsumgame.models.StreamerListItem;
+import com.example.getsumgame.models.StreamerListResult;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

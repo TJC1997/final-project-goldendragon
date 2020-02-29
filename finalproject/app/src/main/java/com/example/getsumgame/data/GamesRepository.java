@@ -2,14 +2,16 @@ package com.example.getsumgame.data;
 
 import android.util.Log;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
-import java.sql.ClientInfoStatus;
+import com.example.getsumgame.models.GameInfo;
+import com.example.getsumgame.models.GameListItem;
+import com.example.getsumgame.models.StreamerListItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class gameRepository implements gameAsyncTask.Callback {
+public class GamesRepository implements GameAsyncTask.Callback {
     private MutableLiveData<List<GameInfo>> mGameInfo;
     private List<GameInfo> tempGameInfoList;
     private MutableLiveData<List<GameListItem>> mGameResult;
@@ -21,8 +23,12 @@ public class gameRepository implements gameAsyncTask.Callback {
     private int goal;
     private int oneTime;
 
+    // Game Streams to Send to Detail Activity
+    private MutableLiveData<ArrayList<ArrayList<StreamerListItem>>> mGameStreams;
+    private ArrayList<ArrayList<StreamerListItem>> tempGameStreams;
 
-    public gameRepository(){
+
+    public GamesRepository(){
         mGameInfo=new MutableLiveData<>();
         tempGameInfoList=new ArrayList<>();
         mGameResult=new MutableLiveData<>();
@@ -32,6 +38,8 @@ public class gameRepository implements gameAsyncTask.Callback {
         Get_Stream_info="https://api.twitch.tv/helix/streams";
         currentGame=null;
         oneTime=1;
+
+        mGameStreams = new MutableLiveData<>();
     }
 
     public MutableLiveData<Status> getmLoadingStatus() {
@@ -46,8 +54,12 @@ public class gameRepository implements gameAsyncTask.Callback {
         return mGameInfo;
     }
 
+    public MutableLiveData<ArrayList<ArrayList<StreamerListItem>>> getMGameStreams(){
+        return this.mGameStreams;
+    }
+
     @Override
-    public void resultReceived(List<GameListItem> gameResult) {
+    public void resultReceived(ArrayList<GameListItem> gameResult) {
         if(oneTime==0){
             return;
         }
@@ -74,7 +86,7 @@ public class gameRepository implements gameAsyncTask.Callback {
         }
     }
 
-    public void streamerReceived(List<StreamerListItem> streamerResults){
+    public void streamerReceived(ArrayList<StreamerListItem> streamerResults){
         if(mGameResult!=null &&streamerResults!=null){
             mLoadingStatus.setValue(Status.SUCCESS);
             currentGame=mGameResult.getValue().get(count);
@@ -90,6 +102,12 @@ public class gameRepository implements gameAsyncTask.Callback {
             tempGameInfoList.add(currentGameInfo);
 //            mGameInfo.setValue(tempGameInfoList);
             Log.d("LENGTH:",Integer.toString( tempGameInfoList.size()));
+
+
+            // Add The Stream Details to a list for later
+            this.tempGameStreams.add(streamerResults);
+            this.mGameStreams.setValue(this.tempGameStreams);
+
             count++;
             if(count==goal){
                 mGameInfo.setValue(tempGameInfoList);
@@ -107,13 +125,13 @@ public class gameRepository implements gameAsyncTask.Callback {
         client_id= CLIENT_ID;
 //        mGameResult.setValue(null);
         mLoadingStatus.setValue(Status.LOADING);
-        new gameAsyncTask(this).execute(CLIENT_ID,Get_Top_Game,"Get_Top_Game");
+        new GameAsyncTask(this).execute(CLIENT_ID,Get_Top_Game,"Get_Top_Game");
 
     }
 
     public void loadGameInfo(String CLIENT_ID,int game_id){
         String param="?game_id="+Integer.toString(game_id);
         String url=Get_Stream_info+param;
-        new gameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
+        new GameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
     }
 }

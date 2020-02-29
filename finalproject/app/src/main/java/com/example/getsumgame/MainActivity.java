@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,14 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.getsumgame.data.GameInfo;
-import com.example.getsumgame.data.GameListItem;
-import com.example.getsumgame.data.GameListResult;
+import com.example.getsumgame.models.StreamerListItem;
+import com.example.getsumgame.models.StreamerListResult;
+import com.example.getsumgame.viewmodels.GameViewModel;
+import com.example.getsumgame.models.GameInfo;
 import com.example.getsumgame.data.Status;
-import com.example.getsumgame.utils.NetworkUtils;
 import com.example.getsumgame.utils.TwitchUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,16 +109,27 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void launchDetails(String gameId, String gameName){
+    private void launchDetails(String gameId, String gameName, int index){
         Log.d(TAG, "Details Launch Initiated!");
 
         // Feel free to use DetailActivity.isGoodIntent(Intent) to verify a good intent.
 
         Intent intent = new Intent();
-        intent.putExtra(DetailActivity.EXTRA_GAME_ID, gameId);
-        intent.putExtra(DetailActivity.EXTRA_GAME_NAME, gameName);
-        intent.setClass(this, DetailActivity.class);
-        this.startActivity(intent);
 
+        // Grab streamers for serialization
+        ArrayList<ArrayList<StreamerListItem>> streamers =
+                this.mViewmodel.getStreamers().getValue();
+
+        if(streamers != null && !streamers.isEmpty()) {
+            StreamerListResult temp = new StreamerListResult();
+            temp.data = streamers.get(index);
+            intent.putExtra(DetailActivity.EXTRA_STREAMERS_SERIAL, temp);
+            intent.putExtra(DetailActivity.EXTRA_GAME_ID, gameId);
+            intent.putExtra(DetailActivity.EXTRA_GAME_NAME, gameName);
+            intent.setClass(this, DetailActivity.class);
+            this.startActivity(intent);
+        }else{
+            Log.e(TAG, "Could not serialize Streamer Information to detail activity!");
+        }
     }
 }

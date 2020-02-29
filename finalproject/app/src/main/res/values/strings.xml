@@ -5,5 +5,7 @@
     <string name="streamer_name">Streamer Name</string>
     <string name="game_name">Game Name</string>
     <string name="game_rating">Game Rating</string>
-    <string name="stream_span">Already Streaming xx Hours</string>
+    <string name="stream_span">Already Streaming XX Hours</string>
+    <string name="bad_game_rating">There is no rating for this game!</string>
+    <string name="unknown_game_rating">Metacritic Score: XX Out Of 100</string>
 </resources>

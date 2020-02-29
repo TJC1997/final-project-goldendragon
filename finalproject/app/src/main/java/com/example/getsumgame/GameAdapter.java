@@ -1,8 +1,6 @@
 package com.example.getsumgame;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.getsumgame.data.GameInfo;
-import com.example.getsumgame.data.GameListItem;
+import com.example.getsumgame.models.GameInfo;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHolder> {

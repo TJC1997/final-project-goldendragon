@@ -1,29 +1,30 @@
-package com.example.getsumgame;
+package com.example.getsumgame.viewmodels;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.getsumgame.data.GameInfo;
-import com.example.getsumgame.data.GameListItem;
+import com.example.getsumgame.models.GameInfo;
 import com.example.getsumgame.data.Status;
-import com.example.getsumgame.data.gameRepository;
+import com.example.getsumgame.data.GamesRepository;
+import com.example.getsumgame.models.StreamerListItem;
 
-import java.sql.ClientInfoStatus;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameViewModel extends ViewModel {
-    private gameRepository mRepo;
+    private GamesRepository mRepo;
     private LiveData<List<GameInfo>> mGameInfo;
 //    private LiveData<List<GameListItem>> mGameResult;
     private LiveData<Status> mLoadingStatus;
+    private LiveData<ArrayList<ArrayList<StreamerListItem>>> mStreamsList;
 
 
     public GameViewModel(){
-        mRepo=new gameRepository();
+        mRepo = new GamesRepository();
 //        mGameResult=mRepo.getmGameResult();
         mGameInfo=mRepo.getmGameInfo();
         mLoadingStatus=mRepo.getmLoadingStatus();
+        this.mStreamsList = mRepo.getMGameStreams();
     }
 
     public void loadGameResults(String CLIENT_ID,String Get_Top_Game){
@@ -40,6 +41,10 @@ public class GameViewModel extends ViewModel {
     //    public LiveData<List<GameListItem>> getmGameResult() {
 //        return mGameResult;
 //    }
+
+    public LiveData<ArrayList<ArrayList<StreamerListItem>>> getStreamers(){
+        return this.mStreamsList;
+    }
 
 
 }

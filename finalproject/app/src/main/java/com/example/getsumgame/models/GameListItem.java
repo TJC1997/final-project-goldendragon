@@ -1,4 +1,4 @@
-package com.example.getsumgame.data;
+package com.example.getsumgame.models;
 
 public class GameListItem {
     public int id;

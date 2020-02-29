@@ -1,4 +1,4 @@
-package com.example.getsumgame.data;
+package com.example.getsumgame.models;
 
 import java.util.ArrayList;
 
