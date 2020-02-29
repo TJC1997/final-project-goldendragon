@@ -38,8 +38,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
     }
 
     public GameItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        LayoutInflater infalter=LayoutInflater.from(parent.getContext());
-        View itemView=infalter.inflate(R.layout.game_list_item,parent,false);
+        LayoutInflater infalter = LayoutInflater.from(parent.getContext());
+        View itemView = infalter.inflate(R.layout.game_list_item,parent,false);
         return new GameItemViewHolder(itemView);
     }
 
@@ -48,7 +48,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
         holder.bind(mGameInfo.get(position));
     }
 
-    class GameItemViewHolder extends RecyclerView.ViewHolder{
+    class GameItemViewHolder extends RecyclerView.ViewHolder {
         private TextView mGameNameTV;
         private TextView mStreamerNumberTV;
         private TextView mViewNumberTV;

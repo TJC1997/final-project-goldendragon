@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     private GameViewModel mViewmodel;
     private GameAdapter mGameAdapter;
     private LinearLayout mainLayout;
+
+    private static final String TAG = MainActivity.class.getName();
 
 
     @Override
@@ -99,7 +102,25 @@ public class MainActivity extends AppCompatActivity
                 mViewmodel.loadGameResults(CLIENT_ID,Get_Top_Game);
 
 //                new gameAsyncTask().execute(CLIENT_ID,Get_Top_Game);
+                break;
+            default:
+                Log.d(TAG, "Unhandled Click!");
+                Log.d(TAG, "Came from: " + view.getId());
+
         }
+
+    }
+
+    private void launchDetails(String gameId, String gameName){
+        Log.d(TAG, "Details Launch Initiated!");
+
+        // Feel free to use DetailActivity.isGoodIntent(Intent) to verify a good intent.
+
+        Intent intent = new Intent();
+        intent.putExtra(DetailActivity.EXTRA_GAME_ID, gameId);
+        intent.putExtra(DetailActivity.EXTRA_GAME_NAME, gameName);
+        intent.setClass(this, DetailActivity.class);
+        this.startActivity(intent);
 
     }
 }

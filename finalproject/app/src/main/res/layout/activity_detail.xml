@@ -36,7 +36,16 @@
         <FrameLayout
             android:id="@+id/detail_preview_frame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/detail_preview_image"
+                android:layout_width="@dimen/preview_max_image_width"
+                android:layout_height="@dimen/preview_max_image_height"
+                android:layout_margin="@dimen/preview_padding_border"
+                android:layout_gravity="center_horizontal" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/detail_rating_text"
@@ -45,7 +54,8 @@
             android:gravity="center_horizontal"
             android:textSize="@dimen/default_text_size"
             android:textColor="@color/colorPrimary"
-            android:text="@string/game_rating"/>
+            android:text="@string/game_rating"
+            android:layout_margin="@dimen/detail_text_margin"/>
 
         <TextView
             android:id="@+id/detail_stream_span_text"
