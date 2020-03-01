@@ -1,8 +1,6 @@
 package com.example.getsumgame;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.getsumgame.data.GameInfo;
-import com.example.getsumgame.data.GameListItem;
+import com.example.getsumgame.models.GameInfo;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHolder> {
@@ -38,8 +32,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
     }
 
     public GameItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        LayoutInflater infalter=LayoutInflater.from(parent.getContext());
-        View itemView=infalter.inflate(R.layout.game_list_item,parent,false);
+        LayoutInflater infalter = LayoutInflater.from(parent.getContext());
+        View itemView = infalter.inflate(R.layout.game_list_item,parent,false);
         return new GameItemViewHolder(itemView);
     }
 
@@ -48,7 +42,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
         holder.bind(mGameInfo.get(position));
     }
 
-    class GameItemViewHolder extends RecyclerView.ViewHolder{
+    class GameItemViewHolder extends RecyclerView.ViewHolder {
         private TextView mGameNameTV;
         private TextView mStreamerNumberTV;
         private TextView mViewNumberTV;

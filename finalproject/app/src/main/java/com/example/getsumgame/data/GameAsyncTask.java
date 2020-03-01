@@ -1,26 +1,26 @@
 package com.example.getsumgame.data;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
+import com.example.getsumgame.models.GameListItem;
+import com.example.getsumgame.models.StreamerListItem;
 import com.example.getsumgame.utils.NetworkUtils;
 import com.example.getsumgame.utils.TwitchUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class gameAsyncTask extends AsyncTask<String, Void, String> {
+public class GameAsyncTask extends AsyncTask<String, Void, String> {
 
     private Callback mCallback;
     private int type;
 
     public interface Callback{
-        void resultReceived(List<GameListItem> gameResults);
-        void streamerReceived(List<StreamerListItem> streamerResults);
+        void resultReceived(ArrayList<GameListItem> gameResults);
+        void streamerReceived(ArrayList<StreamerListItem> streamerResults);
     }
 
-    public gameAsyncTask(Callback callback){
+    public GameAsyncTask(Callback callback){
         mCallback=callback;
     }
 

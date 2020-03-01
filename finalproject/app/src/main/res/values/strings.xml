@@ -1,6 +1,8 @@
 <resources>
+
     <string name="app_name">GetSumGame</string>
     <string name="action_settings">Settings</string>
+
     <!--    language setting preference -->
     <string name="pref_language_key" translatable="false">Language</string>
     <string name="pref_language_title">Choose Language</string>
@@ -15,4 +17,13 @@
     <string name="pref_language_korean_value">ko</string>
     <string name="pref_language_chinese_entry">Chinese Tradition</string>
     <string name="pref_language_chinese_value">zh</string>
+
+    <!-- Names for the Detail Activity App Default Values -->
+    <string name="streamer_name">Streamer Name</string>
+    <string name="game_name">Game Name</string>
+    <string name="game_rating">Game Rating</string>
+    <string name="stream_span">Already Streaming XX Hours</string>
+    <string name="bad_game_rating">There is no rating for this game!</string>
+    <string name="unknown_game_rating">Metacritic Score: XX Out Of 100</string>
+    
 </resources>
