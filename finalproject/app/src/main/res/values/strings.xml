@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">GetSumGame</string>
+    <string name="action_settings">Settings</string>
+    <!--    language setting preference -->
+    <string name="pref_language_key" translatable="false">Language</string>
+    <string name="pref_language_title">Choose Language</string>
+    <string name="pref_language_default">en</string>
+    <string name="pref_language_english_entry">English</string>
+    <string name="pref_language_english_value">en</string>
+    <string name="pref_language_french_entry">French</string>
+    <string name="pref_language_french_value">fn</string>
+    <string name="pref_language_japanese_entry">Japanese</string>
+    <string name="pref_language_japanese_value">ja</string>
+    <string name="pref_language_korean_entry">Korean</string>
+    <string name="pref_language_korean_value">ko</string>
+    <string name="pref_language_chinese_entry">Chinese Tradition</string>
+    <string name="pref_language_chinese_value">zh</string>
 </resources>
