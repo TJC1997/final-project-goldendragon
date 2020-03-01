@@ -40,6 +40,7 @@ public class GamesRepository implements GameAsyncTask.Callback {
         oneTime=1;
 
         mGameStreams = new MutableLiveData<>();
+        tempGameStreams = new ArrayList<>();
     }
 
     public MutableLiveData<Status> getmLoadingStatus() {
