@@ -1,5 +1,6 @@
 package com.example.getsumgame;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,12 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.getsumgame.models.StreamerListItem;
 import com.example.getsumgame.models.StreamerListResult;
@@ -38,6 +43,8 @@ public class MainActivity extends AppCompatActivity
     private GameViewModel mViewmodel;
     private GameAdapter mGameAdapter;
     private LinearLayout mainLayout;
+    private Toast myToast;
+    private long myLastClickTime;
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -46,6 +53,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myLastClickTime = 0; // initialize last click time
+        myToast = null; //initialize toast object
         get_game_button=(Button) findViewById(R.id.get_game_button);
         get_game_button.setOnClickListener(this);
         CLIENT_ID=TwitchUtils.getClientId();
@@ -94,6 +103,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClick(View view)
     {
+        if (myToast!=null){
+            myToast.cancel();
+        }
+        if(SystemClock.elapsedRealtime() - myLastClickTime < 30000) //30 seconds
+        {
+            myToast = Toast.makeText(this,"Request is Too Frequent",Toast.LENGTH_LONG);
+            myToast.show();
+            return;
+        }
+        myLastClickTime = SystemClock.elapsedRealtime();
         switch (view.getId()) {
             case R.id.get_game_button:
                 mainLayout.setBackgroundColor(Color.WHITE);
@@ -109,6 +128,24 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void launchDetails(String gameId, String gameName, int index){
         Log.d(TAG, "Details Launch Initiated!");
 
@@ -130,6 +167,6 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(intent);
         }else{
             Log.e(TAG, "Could not serialize Streamer Information to detail activity!");
-        }
+        }    
     }
 }
