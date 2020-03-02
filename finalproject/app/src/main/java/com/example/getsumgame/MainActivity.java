@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements View.OnClickListener{
+        implements View.OnClickListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
     private Button get_game_button;
     private String CLIENT_ID;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     private GameViewModel mViewmodel;
     private GameAdapter mGameAdapter;
     private LinearLayout mainLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private Toast myToast;
     private long myLastClickTime;
 
@@ -57,11 +61,13 @@ public class MainActivity extends AppCompatActivity
         myToast = null; //initialize toast object
         get_game_button=(Button) findViewById(R.id.get_game_button);
         get_game_button.setOnClickListener(this);
+
         CLIENT_ID=TwitchUtils.getClientId();
         Get_Top_Game=TwitchUtils.getGet_Top_Game();
 
         mainLayout = findViewById(R.id.get_main_layout);
-
+        mSwipeRefreshLayout=findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         mGameAdapter=new GameAdapter();
         mGameItemsRV=findViewById(R.id.rv_game_items);
         mLoadingErrorMessageTV=findViewById(R.id.tv_loading_error_message);
@@ -77,6 +83,7 @@ public class MainActivity extends AppCompatActivity
             public void onChanged(List<GameInfo> gameInfos) {
 //                Log.d("txtid",Integer.toString(gameInfos.size()));
                 mGameAdapter.updateGameData(gameInfos);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -95,10 +102,37 @@ public class MainActivity extends AppCompatActivity
                     mGameItemsRV.setVisibility(View.INVISIBLE);
                     mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
                 }
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
 
+    public void myUpdateOperation(){
+        if (myToast!=null){
+            myToast.cancel();
+        }
+        if(SystemClock.elapsedRealtime() - myLastClickTime < 30000) //30 seconds
+        {
+            long seconds=(SystemClock.elapsedRealtime() - myLastClickTime)/1000;
+            seconds=30-seconds;
+            myToast = Toast.makeText(this,"Request is Too Frequent,please wait for "+
+                    Long.toString(seconds)+"seconds",Toast.LENGTH_LONG);
+            myToast.show();
+            mSwipeRefreshLayout.setRefreshing(false);
+            return;
+        }
+        myLastClickTime = SystemClock.elapsedRealtime();
+        mainLayout.setBackgroundColor(Color.WHITE);
+        mViewmodel.loadGameResults(CLIENT_ID,Get_Top_Game);
+        Log.d("fresh","freshed");
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        Log.d("fresh", "onRefresh called from SwipeRefreshLayout");
+        myUpdateOperation();
+    }
 
     @Override
     public void onClick(View view)
@@ -141,6 +175,16 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
+                return true;
+            case R.id.menu_refresh:
+                Log.d("fresh", "Refresh menu item selected");
+
+                // Signal SwipeRefreshLayout to start the progress indicator
+                mSwipeRefreshLayout.setRefreshing(true);
+
+                // Start the refresh background task.
+                // This method calls setRefreshing(false) when it's finished.
+                myUpdateOperation();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
