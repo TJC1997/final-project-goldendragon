@@ -1,7 +1,11 @@
 package com.example.getsumgame;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Toast myToast;
     private long myLastClickTime;
+    private DrawerLayout mDrawerLayout;
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -57,6 +62,14 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
         myLastClickTime = 0; // initialize last click time
         myToast = null; //initialize toast object
         get_game_button=(Button) findViewById(R.id.get_game_button);
@@ -73,6 +86,7 @@ public class MainActivity extends AppCompatActivity
         mLoadingErrorMessageTV=findViewById(R.id.tv_loading_error_message);
         mLoadingIndicatorPB=findViewById(R.id.pb_loading_indicator);
         mViewmodel=new ViewModelProvider(this).get(GameViewModel.class);
+        mDrawerLayout = findViewById(R.id.drawer_layout); //drawer
 
         mGameItemsRV.setAdapter(mGameAdapter);
         mGameItemsRV.setLayoutManager(new LinearLayoutManager(this));
@@ -185,6 +199,9 @@ public class MainActivity extends AppCompatActivity
                 // Start the refresh background task.
                 // This method calls setRefreshing(false) when it's finished.
                 myUpdateOperation();
+                return true;
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
