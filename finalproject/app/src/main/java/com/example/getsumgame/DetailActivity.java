@@ -270,8 +270,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setDefaultValues();
-
         // Check for a good intent
         if(!isGoodIntent(this.getIntent())){
             this.politelyExit();
