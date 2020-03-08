@@ -16,6 +16,15 @@ import java.util.List;
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHolder> {
     private List<GameInfo> mGameInfo;
     private Context activity;
+    private OnClickListener viewHolderListener;
+
+    public interface OnClickListener{
+        void onClick(String gameId, String gameName, int index);
+    }
+
+    public GameAdapter(OnClickListener listener){
+        this.viewHolderListener = listener;
+    }
 
     public void updateGameData(List<GameInfo> gameInfo){
         mGameInfo=gameInfo;
@@ -34,29 +43,39 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
     public GameItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         LayoutInflater infalter = LayoutInflater.from(parent.getContext());
         View itemView = infalter.inflate(R.layout.game_list_item,parent,false);
-        return new GameItemViewHolder(itemView);
+        return new GameItemViewHolder(itemView, this.viewHolderListener);
     }
 
     @Override
     public void onBindViewHolder(GameItemViewHolder holder, int position) {
         holder.bind(mGameInfo.get(position));
+        holder.setIndexOfBinding(position);
     }
 
-    class GameItemViewHolder extends RecyclerView.ViewHolder {
+    class GameItemViewHolder extends RecyclerView.ViewHolder implements
+        View.OnClickListener{
         private TextView mGameNameTV;
         private TextView mStreamerNumberTV;
         private TextView mViewNumberTV;
         private TextView mGameIdTV;
         private ImageView mGameIcon;
 
-        public GameItemViewHolder(View ItemView){
+        private GameAdapter.OnClickListener callback;
+        private int indexOfBinding;
+
+        public GameItemViewHolder(View ItemView, GameAdapter.OnClickListener callback){
             super(ItemView);
+            ItemView.setOnClickListener(this);
             mGameNameTV=ItemView.findViewById(R.id.game_name);
             mStreamerNumberTV=ItemView.findViewById(R.id.streamer_number);
             mViewNumberTV=ItemView.findViewById(R.id.view_number);
             mGameIdTV=ItemView.findViewById(R.id.game_id);
             mGameIcon=ItemView.findViewById(R.id.iv_game_icon);
+
+            this.callback = callback;
+            this.indexOfBinding = 0;
         }
+
         public void bind(GameInfo gameItem){
             String name=gameItem.Game_name;
             String id=Integer.toString(gameItem.Game_id);
@@ -67,6 +86,25 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
             mViewNumberTV.setText(viewer_count);
             mGameIdTV.setText(id);
             setup_icon(name);
+        }
+
+        public void setIndexOfBinding(int index){
+            this.indexOfBinding = index;
+        }
+
+        @Override
+        public void onClick(View v) {
+            // Just assume the View is the on this viewholder is holding.
+            // We can go more advanced later if we want to with a switch statement
+
+            // Get Information from Text Views
+            String gameId = mGameIdTV.getText().toString();
+            String gameName = mGameNameTV.getText().toString();
+            int index = this.indexOfBinding;
+
+            // Send to Intent Populator
+            callback.onClick(gameId, gameName, index);
+
         }
 
         public void setup_icon(String name){

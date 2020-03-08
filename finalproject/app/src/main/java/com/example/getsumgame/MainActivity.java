@@ -39,7 +39,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener,
+        GameAdapter.OnClickListener{
 
     private Button get_game_button;
     private String CLIENT_ID;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         mainLayout = findViewById(R.id.get_main_layout);
         mSwipeRefreshLayout=findViewById(R.id.swiperefresh);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mGameAdapter=new GameAdapter();
+        mGameAdapter=new GameAdapter(this);
         mGameItemsRV=findViewById(R.id.rv_game_items);
         mLoadingErrorMessageTV=findViewById(R.id.tv_loading_error_message);
         mLoadingIndicatorPB=findViewById(R.id.pb_loading_indicator);
@@ -207,6 +208,13 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+    @Override
+    public void onClick(String gameId, String gameName, int index) {
+        this.launchDetails(gameId, gameName, index);
+    }
+
     private void launchDetails(String gameId, String gameName, int index){
         Log.d(TAG, "Details Launch Initiated!");
 

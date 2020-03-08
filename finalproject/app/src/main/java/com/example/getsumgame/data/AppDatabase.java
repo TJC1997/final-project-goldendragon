@@ -8,7 +8,8 @@ import androidx.room.RoomDatabase;
 
 import com.example.getsumgame.models.GameInfo;
 
-@Database(entities = {GameInfo.class}, version = 1)
+//https://stackoverflow.com/questions/44322178/room-schema-export-directory-is-not-provided-to-the-annotation-processor-so-we
+@Database(entities = {GameInfo.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract SavedReposDao savedReposDao();
     private static volatile AppDatabase INSTANCE;

@@ -6,13 +6,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.getsumgame.data.Status;
 import com.example.getsumgame.models.StreamerListItem;
 import com.example.getsumgame.models.StreamerListResult;
@@ -27,30 +30,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 
-/*
- * TODO
- *  [x] Get the values associated with the Game
- *     [x] Game ID
- *     [x] Game Title
- *  [x] Get the values from the Stream
- *     [x] Get available streams
- *     [x] Choose a stream
- *     [x] Get Streamer Name
- *     [x] Get Preview
- *     [ ] Get Link to stream
- *     [x] Get Hours streamed
- *  [x] Get the Values from ChickenCoup
- *     [x] Game Rating
- *     [x] Store in an object in case someone wants to use review too
- *  [x] Update UI
- *     [x] Update Streamer Texts with Info
- *     [x] Politely exit if ID does not makes sense
- *     [x] Populate Game Rating from Chicken Coup
- *  [ ] Handle Intent
- *     [ ] Handle click on image
- *     [ ] Create intent to Twitch
- */
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements
+    View.OnClickListener{
 
     // Strings for identification of intent extras
     public static final String EXTRA_GAME_ID = "game_id";
@@ -76,6 +57,12 @@ public class DetailActivity extends AppCompatActivity {
     // API Data Reference
     private StreamViewModel streamViewModel = null;
 
+    // package name For Deeplinking
+    private static final String TWITCH_PACKAGE = "tv.twitch.android.app";
+
+    // URIs and URLs for Intents
+    private static final String TWITCH_STREAM_URI = "twitch://stream/";
+    private static final String TWITCH_STREAM_URL = "https://www.twitch.tv/";
 
     /****************** STATIC FUNCTIONS ********************************/
 
@@ -127,8 +114,8 @@ public class DetailActivity extends AppCompatActivity {
 
     /********* Graphical **************/
     private void setUpGraphics(){
-        // Populate image view with dummy image
-        this.setStreamPreview(this.getDrawable(R.drawable.abstract_image));
+        // Populate image view with stream Image
+        this.setUpImage();
 
         ((TextView) this.findViewById(R.id.detail_game_header))
                 .setText(this.gameName);
@@ -143,6 +130,25 @@ public class DetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+    }
+
+    private void setUpImage(){
+        String url = this.streamerDetails.thumbnail_url;
+        url = url.replaceFirst(
+                "\\{width\\}",
+                Integer.toString(this.streamPreview.getLayoutParams().width)
+        );
+
+        url = url.replaceFirst(
+                "\\{height\\}",
+                Integer.toString(this.streamPreview.getLayoutParams().height)
+        );
+
+        Log.d(TAG, "Gliding with URL: " + url);
+
+        // Ah Yes the Glide One Liner
+        Glide.with(this).load(url).into(this.streamPreview);
+        //https://bumptech.github.io/glide/doc/getting-started.html
     }
 
     private void pushViewModel(){
@@ -232,10 +238,35 @@ public class DetailActivity extends AppCompatActivity {
         ratingText.setVisibility(View.VISIBLE);
     }
 
-    /********* Background/Networking **************/
-    private void loadPreview(){
+    /********* IMPLICIT INTENT AND MOBILE DEEP LINKS ********/
 
+    // TODO Test!!!!!!
+    //https://dev.twitch.tv/docs/mobile-deeplinks
+    private boolean isTwitchInstalled(){
+        PackageManager packageManager = this.getPackageManager();
+        try{
+            packageManager.getPackageInfo(TWITCH_PACKAGE, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
+
+    private void startImplicitIntent(){
+        Log.d(TAG, "launch stream!");
+        if(this.isTwitchInstalled()){
+            Uri deepLink = Uri.parse(TWITCH_STREAM_URI + this.streamerDetails.user_name);
+            Intent twitchIntent = new Intent(Intent.ACTION_VIEW, deepLink);
+            this.startActivity(twitchIntent);
+        }else{
+            Log.d(TAG, "Twitch not installed!");
+            Uri onlineLink = Uri.parse(TWITCH_STREAM_URL + this.streamerDetails.user_name);
+            Intent twitchIntent = new Intent(Intent.ACTION_VIEW, onlineLink);
+            this.startActivity(twitchIntent);
+        }
+    }
+
+    /********* Background/Networking **************/
 
     private void startObservers(){
         // TODO add observer to SingleGameRepsository
@@ -270,8 +301,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setDefaultValues();
-
         // Check for a good intent
         if(!isGoodIntent(this.getIntent())){
             this.politelyExit();
@@ -295,12 +324,12 @@ public class DetailActivity extends AppCompatActivity {
 
         /* ------ Call Setup Subroutines ------ */
 
-        this.setUpGraphics();
         this.pushViewModel();
         this.populateLoadStreamerDetails();
+        this.setUpGraphics();
         this.populateTextViews();
-        this.loadPreview();
         this.startObservers();
+        this.streamPreview.setOnClickListener(this);
         this.pullOnRepos();
     }
 
@@ -319,6 +348,16 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         this.navigateUpToFromChild(this, this.getIntent());
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.detail_preview_image){
+            this.startImplicitIntent();
+        }else{
+            Log.d(TAG, "Unknown Click Occured");
+            Log.d(TAG, "Id is " + v.getId());
+        }
     }
 
 
