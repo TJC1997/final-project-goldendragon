@@ -9,4 +9,9 @@
     <dimen name="preview_padding_border">20dp</dimen>
     <dimen name="preview_max_image_width">320dp</dimen>
     <dimen name="preview_max_image_height">180dp</dimen>
+
+    <dimen name="default_padding_small">6dp</dimen>
+    <dimen name="default_padding_medium">12dp</dimen>
+    <dimen name="default_padding_large">18dp</dimen>
+    <dimen name="default_padding_xtra_large">24dp</dimen>
 </resources>
