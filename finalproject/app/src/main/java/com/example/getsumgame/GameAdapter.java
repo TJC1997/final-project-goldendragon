@@ -19,7 +19,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
     private OnClickListener viewHolderListener;
 
     public interface OnClickListener{
-        void onClick(String gameId, String gameName, int index);
+        void onClickForDetail(String gameId, String gameName, int index);
     }
 
     public GameAdapter(OnClickListener listener){
@@ -103,7 +103,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
             int index = this.indexOfBinding;
 
             // Send to Intent Populator
-            callback.onClick(gameId, gameName, index);
+            callback.onClickForDetail(gameId, gameName, index);
 
         }
 

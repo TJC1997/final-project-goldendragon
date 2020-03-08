@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void onClick(String gameId, String gameName, int index) {
+    public void onClickForDetail(String gameId, String gameName, int index) {
         this.launchDetails(gameId, gameName, index);
     }
 
