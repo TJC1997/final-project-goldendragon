@@ -61,9 +61,9 @@ public class GamesRepository implements GameAsyncTask.Callback {
 
     @Override
     public void resultReceived(ArrayList<GameListItem> gameResult) {
-        if(oneTime==0){
-            return;
-        }
+//        if(oneTime==0){
+//            return;
+//        }
         if(gameResult!=null && !gameResult.isEmpty()){
             goal=gameResult.size();
         }
@@ -120,9 +120,9 @@ public class GamesRepository implements GameAsyncTask.Callback {
     }
 
     public void loadGameResults(String CLIENT_ID,String Get_Top_Game){
-        if(oneTime==0){
-            return;
-        }
+//        if(oneTime==0){
+//            return;
+//        }
         client_id= CLIENT_ID;
 //        mGameResult.setValue(null);
         mLoadingStatus.setValue(Status.LOADING);
