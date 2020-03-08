@@ -62,7 +62,7 @@ public class DetailActivity extends AppCompatActivity implements
 
     // URIs and URLs for Intents
     private static final String TWITCH_STREAM_URI = "twitch://stream/";
-    private static final String TWITCH_STREAM_URL = "twitch://stream/";
+    private static final String TWITCH_STREAM_URL = "https://www.twitch.tv/";
 
     /****************** STATIC FUNCTIONS ********************************/
 
@@ -240,6 +240,7 @@ public class DetailActivity extends AppCompatActivity implements
 
     /********* IMPLICIT INTENT AND MOBILE DEEP LINKS ********/
 
+    // TODO Test!!!!!!
     //https://dev.twitch.tv/docs/mobile-deeplinks
     private boolean isTwitchInstalled(){
         PackageManager packageManager = this.getPackageManager();
