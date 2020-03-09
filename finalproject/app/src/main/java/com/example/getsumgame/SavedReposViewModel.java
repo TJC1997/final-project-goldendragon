@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.getsumgame.data.SavedReposRepository;
 import com.example.getsumgame.models.GameInfo;
+import com.example.getsumgame.models.SavedInfo;
 
 import java.util.List;
 
@@ -18,15 +19,15 @@ public class SavedReposViewModel extends AndroidViewModel {
         mRepository = new SavedReposRepository(application);
     }
 
-    public void insertSavedRepo(GameInfo repo) {
+    public void insertSavedRepo(SavedInfo repo) {
         mRepository.insertSavedRepo(repo);
     }
 
-    public void deleteSavedRepo(GameInfo repo) {
+    public void deleteSavedRepo(SavedInfo repo) {
         mRepository.deleteSavedRepo(repo);
     }
 
-    public LiveData<List<GameInfo>> getAllRepos() {
+    public LiveData<List<SavedInfo>> getAllRepos() {
         return mRepository.getAllRepos();
     }
 }

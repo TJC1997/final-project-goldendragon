@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.getsumgame.models.SavedInfo;
 import com.example.getsumgame.models.StreamerListItem;
 import com.example.getsumgame.models.StreamerListResult;
 import com.example.getsumgame.viewmodels.GameViewModel;
@@ -40,7 +41,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener,
-        GameAdapter.OnClickListener{
+        GameAdapter.OnClickListener,
+        SavedReposAdapter.OnSavedInfoClickListener{
 
     private Button get_game_button;
     private String CLIENT_ID;
@@ -55,6 +57,10 @@ public class MainActivity extends AppCompatActivity
     private Toast myToast;
     private long myLastClickTime;
     private DrawerLayout mDrawerLayout;
+    private SavedReposViewModel savedReposViewModel;
+    private SavedReposAdapter savedReposAdapter;
+    private RecyclerView mSavedReposRV;
+    private SavedInfo mS;
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -88,6 +94,23 @@ public class MainActivity extends AppCompatActivity
         mLoadingIndicatorPB=findViewById(R.id.pb_loading_indicator);
         mViewmodel=new ViewModelProvider(this).get(GameViewModel.class);
         mDrawerLayout = findViewById(R.id.drawer_layout); //drawer
+
+        mSavedReposRV = findViewById(R.id.rv_saved_repos);
+        savedReposViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(getApplication()))
+                .get(SavedReposViewModel.class);
+        mS = new SavedInfo();
+        savedReposAdapter = new SavedReposAdapter(this);
+        mSavedReposRV.setAdapter(savedReposAdapter); //set up adapter to recycler review
+        mSavedReposRV.setLayoutManager(new LinearLayoutManager(this));
+        mSavedReposRV.setHasFixedSize(true);
+
+        savedReposViewModel.getAllRepos().observe(this, new Observer<List<SavedInfo>>() {
+            @Override
+            public void onChanged(List<SavedInfo> savedInfos) {
+                savedReposAdapter.updateSavedInfo(savedInfos);
+            }
+        });
 
         mGameItemsRV.setAdapter(mGameAdapter);
         mGameItemsRV.setLayoutManager(new LinearLayoutManager(this));
@@ -213,6 +236,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClickForDetail(String gameId, String gameName, int index) {
         this.launchDetails(gameId, gameName, index);
+        mS.gameID = gameId;
+        mS.gameName = gameName;
+        mS.index = index;
+        savedReposViewModel.deleteSavedRepo(mS);
+        savedReposViewModel.insertSavedRepo(mS);
     }
 
     private void launchDetails(String gameId, String gameName, int index){
@@ -237,5 +265,11 @@ public class MainActivity extends AppCompatActivity
         }else{
             Log.e(TAG, "Could not serialize Streamer Information to detail activity!");
         }    
+    }
+
+    @Override
+    public void OnSavedInfoClick(SavedInfo savedInfo) {
+        //load detail page...
+        this.launchDetails(savedInfo.gameID, savedInfo.gameName, savedInfo.index);
     }
 }

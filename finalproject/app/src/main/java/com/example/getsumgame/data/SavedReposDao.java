@@ -7,17 +7,18 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.getsumgame.models.GameInfo;
+import com.example.getsumgame.models.SavedInfo;
 
 import java.util.List;
 
 @Dao
 public interface SavedReposDao {
     @Insert
-    void insert(GameInfo repo);
+    void insert(SavedInfo repo);
 
     @Delete
-    void delete(GameInfo repo);
+    void delete(SavedInfo repo);
 
     @Query("SELECT * FROM repos")
-    LiveData<List<GameInfo>> getAllRepos();
+    LiveData<List<SavedInfo>> getAllRepos();
 }
