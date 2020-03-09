@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,7 +44,8 @@ public class MainActivity extends AppCompatActivity
         implements View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener,
         GameAdapter.OnClickListener,
-        SavedReposAdapter.OnSavedInfoClickListener{
+        SavedReposAdapter.OnSavedInfoClickListener,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Button get_game_button;
     private String CLIENT_ID;
@@ -94,6 +97,8 @@ public class MainActivity extends AppCompatActivity
         mLoadingIndicatorPB=findViewById(R.id.pb_loading_indicator);
         mViewmodel=new ViewModelProvider(this).get(GameViewModel.class);
         mDrawerLayout = findViewById(R.id.drawer_layout); //drawer
+
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
 
         mSavedReposRV = findViewById(R.id.rv_saved_repos);
         savedReposViewModel = new ViewModelProvider(this,
@@ -271,5 +276,20 @@ public class MainActivity extends AppCompatActivity
     public void OnSavedInfoClick(SavedInfo savedInfo) {
         //load detail page...
         this.launchDetails(savedInfo.gameID, savedInfo.gameName, savedInfo.index);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String language = preferences.getString(getString(R.string.pref_language_key), getString(R.string.pref_language_default));
+
+        Log.d("Debug", "The language user selected is: "+ language);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
 }
