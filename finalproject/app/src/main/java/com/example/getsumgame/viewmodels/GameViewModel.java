@@ -27,8 +27,8 @@ public class GameViewModel extends ViewModel {
         this.mStreamsList = mRepo.getMGameStreams();
     }
 
-    public void loadGameResults(String CLIENT_ID,String Get_Top_Game){
-        mRepo.loadGameResults(CLIENT_ID,Get_Top_Game);
+    public void loadGameResults(String CLIENT_ID,String Get_Top_Game, String languagePreference){
+        mRepo.loadGameResults(CLIENT_ID,Get_Top_Game, languagePreference);
     }
 
     public LiveData<Status> getmLoadingStatus() {

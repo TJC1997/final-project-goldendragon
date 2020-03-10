@@ -123,7 +123,7 @@ public class GamesRepository implements GameAsyncTask.Callback {
         }
     }
 
-    public void loadGameResults(String CLIENT_ID,String Get_Top_Game){
+    public void loadGameResults(String CLIENT_ID,String Get_Top_Game, String languagePreference){
 //        if(oneTime==0){
 //            return;
 //        }
@@ -131,18 +131,18 @@ public class GamesRepository implements GameAsyncTask.Callback {
 //        mGameResult.setValue(null);
         mLoadingStatus.setValue(Status.LOADING);
         new GameAsyncTask(this).execute(CLIENT_ID,Get_Top_Game,"Get_Top_Game");
-
+        this.languagePreference = languagePreference;
     }
 
     public void loadGameInfo(String CLIENT_ID,int game_id){
         String param="?game_id="+Integer.toString(game_id);
         String url=Get_Stream_info+param;
-        if (languagePreference==""){
+        if (languagePreference.equals("")){
             Log.d("Debug", "Acquire URL is: " + url);
             new GameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
 
         }else{
-            url = url + "?language="+languagePreference;
+            url = url + "&language="+languagePreference;
             Log.d("Debug", "Acquire URL is: " + url);
             new GameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
         }

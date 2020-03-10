@@ -167,7 +167,9 @@ public class MainActivity extends AppCompatActivity
         }
         myLastClickTime = SystemClock.elapsedRealtime();
         mainLayout.setBackgroundColor(Color.WHITE);
-        mViewmodel.loadGameResults(CLIENT_ID,Get_Top_Game);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String language = preferences.getString(getString(R.string.pref_language_key), getString(R.string.pref_language_default));
+        mViewmodel.loadGameResults(CLIENT_ID,Get_Top_Game, language);
         Log.d("fresh","freshed");
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -194,7 +196,9 @@ public class MainActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.get_game_button:
                 mainLayout.setBackgroundColor(Color.WHITE);
-                mViewmodel.loadGameResults(CLIENT_ID,Get_Top_Game);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                String language = preferences.getString(getString(R.string.pref_language_key), getString(R.string.pref_language_default));
+                mViewmodel.loadGameResults(CLIENT_ID,Get_Top_Game,language);
 
 //                new gameAsyncTask().execute(CLIENT_ID,Get_Top_Game);
                 break;
