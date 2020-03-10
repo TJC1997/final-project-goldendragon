@@ -76,6 +76,7 @@ public class GamesRepository implements GameAsyncTask.Callback {
             count=0;
             mLoadingStatus.setValue(Status.SUCCESS);
             tempGameInfoList.clear();
+            tempGameStreams.clear();
 //            tempGameInfoList=new ArrayList<>();
             Log.d("Start","DONE with game result");
             if(gameResult!=null){
