@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity
         mDrawerLayout = findViewById(R.id.drawer_layout); //drawer
 
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+        String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.pref_language_key), getString(R.string.pref_language_default));
+        mViewmodel.setLanguagePreference(language);
+        Log.d("Debug", "The language user selected is: "+ language);
 
         mSavedReposRV = findViewById(R.id.rv_saved_repos);
         savedReposViewModel = new ViewModelProvider(this,
@@ -186,7 +189,10 @@ public class MainActivity extends AppCompatActivity
         }
         if(SystemClock.elapsedRealtime() - myLastClickTime < 30000) //30 seconds
         {
-            myToast = Toast.makeText(this,"Request is Too Frequent",Toast.LENGTH_LONG);
+            long seconds=(SystemClock.elapsedRealtime() - myLastClickTime)/1000;
+            seconds=30-seconds;
+            myToast = Toast.makeText(this,"Request is Too Frequent,please wait for "+
+                    Long.toString(seconds)+"seconds",Toast.LENGTH_LONG);
             myToast.show();
             return;
         }

@@ -102,8 +102,10 @@ public class GamesRepository implements GameAsyncTask.Callback {
             int view_count=0;
             for (StreamerListItem stream:streamerResults) {
                 view_count+=stream.viewer_count;
+                currentGameInfo.language=stream.language;
             }
             currentGameInfo.view_number=view_count;
+//            currentGameInfo.language=streamerResults.get(0).language;
             tempGameInfoList.add(currentGameInfo);
 //            mGameInfo.setValue(tempGameInfoList);
             Log.d("LENGTH:",Integer.toString( tempGameInfoList.size()));
@@ -139,13 +141,11 @@ public class GamesRepository implements GameAsyncTask.Callback {
         String url=Get_Stream_info+param;
         if (languagePreference==""){
             Log.d("Debug", "Acquire URL is: " + url);
-            new GameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
-
         }else{
-            url = url + "?language="+languagePreference;
+            url = url + "&language="+languagePreference;
             Log.d("Debug", "Acquire URL is: " + url);
-            new GameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
         }
+        new GameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
     }
 
     public void setLanguagePreference(String languagePreference) {

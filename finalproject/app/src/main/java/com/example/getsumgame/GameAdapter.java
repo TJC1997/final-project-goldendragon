@@ -58,6 +58,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
         private TextView mStreamerNumberTV;
         private TextView mViewNumberTV;
         private TextView mGameIdTV;
+        private TextView mLanguageTV;
         private ImageView mGameIcon;
 
         private GameAdapter.OnClickListener callback;
@@ -71,6 +72,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
             mViewNumberTV=ItemView.findViewById(R.id.view_number);
             mGameIdTV=ItemView.findViewById(R.id.game_id);
             mGameIcon=ItemView.findViewById(R.id.iv_game_icon);
+            mLanguageTV=ItemView.findViewById(R.id.Language_pref);
 
             this.callback = callback;
             this.indexOfBinding = 0;
@@ -81,10 +83,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameItemViewHo
             String id=Integer.toString(gameItem.Game_id);
             String viewer_count=Integer.toString(gameItem.view_number);
             String streamer_count=Integer.toString(gameItem.streamer_count);
+            String Language=gameItem.language;
             mGameNameTV.setText(name);
             mStreamerNumberTV.setText(streamer_count);
             mViewNumberTV.setText(viewer_count);
             mGameIdTV.setText(id);
+            mLanguageTV.setText(Language);
             setup_icon(name);
         }
 

@@ -38,9 +38,6 @@ public class GameViewModel extends ViewModel {
     public LiveData<List<GameInfo>> getmGameInfo() {
         return mGameInfo;
     }
-    //    public LiveData<List<GameListItem>> getmGameResult() {
-//        return mGameResult;
-//    }
 
     public LiveData<ArrayList<ArrayList<StreamerListItem>>> getStreamers(){
         return this.mStreamsList;
