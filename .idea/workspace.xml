@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ac084576-3386-4626-b213-6b0733b9cb5b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/GameListItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/GameListItem.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,22 +12,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_27" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/GameInfo.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/GameListItem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,7 +24,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="125" />
     <option name="y" value="50" />
     <option name="width" value="1375" />
@@ -51,8 +35,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -186,10 +170,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="100" y="40" width="1100" height="672" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32925683" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.23132849" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -206,18 +190,10 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/gameAsyncTask.java">
+    <entry file="file://$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/GameAsyncTask.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/GameListItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/GameInfo.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/GameListItem.java" />
+    <entry file="file://$PROJECT_DIR$/finalproject/app/src/main/java/com/example/getsumgame/data/GameInfo.java" />
   </component>
 </project>

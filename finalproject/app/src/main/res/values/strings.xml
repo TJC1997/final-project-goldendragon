@@ -17,10 +17,11 @@
     <string name="pref_language_korean_value">ko</string>
     <string name="pref_language_chinese_entry">Chinese Tradition</string>
     <string name="pref_language_chinese_value">zh</string>
-    <string name="pref_language_Portuguese_entry">Portuguese</string>
-    <string name="pref_language_Portuguese_value">pt</string>
-    <string name="pref_language_Turkish_entry">Turkish</string>
-    <string name="pref_language_Turkish_value">tr</string>
+    <string name="pref_language_spain_entry">Spanish</string>
+    <string name="pref_language_spain_value">sp</string>
+    <string name="pref_language_nopref_entry">No preference</string>
+    <string name="pref_language_nopref_value"></string>
+
 
 
     <!-- Names for the Detail Activity App Default Values -->
