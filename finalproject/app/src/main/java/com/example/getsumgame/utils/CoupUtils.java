@@ -20,16 +20,24 @@ public class CoupUtils {
     }
 
     public static CoupResult parseJson(String json){
-        Gson gson = new Gson();
-        CoupResult result =  gson.fromJson(json, CoupResult.class);
-        if (result != null && result.result != null){
-            return result;
-        }
-        else{
-            Log.e(TAG, "Could not parse JSON String");
-            Log.e(TAG, json);
-            Log.e(TAG, "Try Again later!");
+        // No Result Will be a returned null
+        if(json.contains("No result")){
+            Log.d(TAG, "No Result!");
             return null;
         }
+
+        Gson gson = new Gson();
+        try {
+            CoupResult result = gson.fromJson(json, CoupResult.class);
+            if (result != null && result.result != null) {
+                return result;
+            }
+        }catch(IllegalStateException e){
+            Log.e(TAG, e.toString());
+        }
+        Log.e(TAG, "Could not parse JSON String");
+        Log.e(TAG, json);
+        Log.e(TAG, "Try Again later!");
+        return null;
     }
 }
