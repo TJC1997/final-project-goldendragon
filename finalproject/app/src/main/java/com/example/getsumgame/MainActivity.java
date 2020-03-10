@@ -1,6 +1,7 @@
 package com.example.getsumgame;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -264,7 +266,7 @@ public class MainActivity extends AppCompatActivity
 
         // Feel free to use DetailActivity.isGoodIntent(Intent) to verify a good intent.
 
-        Intent intent = new Intent();
+        Intent intent = new Intent(this.getApplicationContext(), DetailActivity.class);
 
         // Grab streamers for serialization
         ArrayList<ArrayList<StreamerListItem>> streamers =
@@ -277,7 +279,7 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra(DetailActivity.EXTRA_GAME_ID, gameId);
             intent.putExtra(DetailActivity.EXTRA_GAME_NAME, gameName);
             intent.setClass(this, DetailActivity.class);
-            this.startActivity(intent);
+            this.startActivityForResult(intent, 0);
         }else{
             Log.e(TAG, "Could not serialize Streamer Information to detail activity!");
         }    
@@ -302,5 +304,30 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "Checking Intent!");
+
+        if(data != null) {
+            int errorCode = data.getIntExtra(
+                    DetailActivity.EXTRA_ERROR_CODE,
+                    DetailActivity.ERROR_CODE_OK
+            );
+
+            if (errorCode == DetailActivity.ERROR_CODE_BAD) {
+                Toast toast = Toast.makeText(
+                        this,
+                        R.string.no_streamers_found,
+                        Toast.LENGTH_SHORT
+                );
+                Log.d(TAG, "Showing Toast!");
+                toast.show();
+            }
+        }
+
     }
 }
