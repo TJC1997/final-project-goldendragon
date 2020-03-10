@@ -30,5 +30,6 @@
     <string name="stream_span">Already Streaming XX Hours</string>
     <string name="bad_game_rating">There is no rating for this game!</string>
     <string name="unknown_game_rating">Metacritic Score: XX Out Of 100</string>
+    <string name="no_streamers_found">There are no Streamers For This Game!</string>
     
 </resources>
