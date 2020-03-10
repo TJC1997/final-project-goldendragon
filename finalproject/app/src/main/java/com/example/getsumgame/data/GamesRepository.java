@@ -1,5 +1,6 @@
 package com.example.getsumgame.data;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -23,6 +24,8 @@ public class GamesRepository implements GameAsyncTask.Callback {
     private int goal;
     private int oneTime;
 
+    private String languagePreference;
+
     // Game Streams to Send to Detail Activity
     private MutableLiveData<ArrayList<ArrayList<StreamerListItem>>> mGameStreams;
     private ArrayList<ArrayList<StreamerListItem>> tempGameStreams;
@@ -41,6 +44,7 @@ public class GamesRepository implements GameAsyncTask.Callback {
 
         mGameStreams = new MutableLiveData<>();
         tempGameStreams = new ArrayList<>();
+        languagePreference = "";
     }
 
     public MutableLiveData<Status> getmLoadingStatus() {
@@ -133,6 +137,18 @@ public class GamesRepository implements GameAsyncTask.Callback {
     public void loadGameInfo(String CLIENT_ID,int game_id){
         String param="?game_id="+Integer.toString(game_id);
         String url=Get_Stream_info+param;
-        new GameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
+        if (languagePreference==""){
+            Log.d("Debug", "Acquire URL is: " + url);
+            new GameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
+
+        }else{
+            url = url + "?language="+languagePreference;
+            Log.d("Debug", "Acquire URL is: " + url);
+            new GameAsyncTask(this).execute(CLIENT_ID,url,"Get_Stream_info");
+        }
+    }
+
+    public void setLanguagePreference(String languagePreference) {
+        this.languagePreference = languagePreference;
     }
 }

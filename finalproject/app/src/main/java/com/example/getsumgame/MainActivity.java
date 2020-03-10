@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -282,7 +283,7 @@ public class MainActivity extends AppCompatActivity
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String language = preferences.getString(getString(R.string.pref_language_key), getString(R.string.pref_language_default));
-
+        mViewmodel.setLanguagePreference(language);
         Log.d("Debug", "The language user selected is: "+ language);
 
     }

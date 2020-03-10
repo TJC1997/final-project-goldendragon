@@ -46,6 +46,8 @@ public class GameViewModel extends ViewModel {
         return this.mStreamsList;
     }
 
-
+    public void setLanguagePreference(String languagePreference) {
+        this.mRepo.setLanguagePreference(languagePreference);
+    }
 }
 

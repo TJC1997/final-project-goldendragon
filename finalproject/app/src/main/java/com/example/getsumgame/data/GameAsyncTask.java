@@ -1,6 +1,7 @@
 package com.example.getsumgame.data;
 
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 import com.example.getsumgame.models.GameListItem;
 import com.example.getsumgame.models.StreamerListItem;
@@ -62,4 +63,6 @@ public class GameAsyncTask extends AsyncTask<String, Void, String> {
             mCallback.streamerReceived(results);
         }
     }
+
+
 }
