@@ -66,9 +66,9 @@ public class ChickenCoupRepository implements CoupAsyncTask.Callback {
     @Override
     public void result(CoupResult result) {
         if(result == null){
-            this.repoStatus.postValue(Status.ERROR);
-        }else if (result.result == null){
             this.repoStatus.postValue(Status.BAD);
+        }else if (result.result == null){
+            this.repoStatus.postValue(Status.ERROR);
         }else{
             this.coupResult.postValue(result);
             this.repoStatus.postValue(Status.SUCCESS);

@@ -10,4 +10,5 @@ public class GameInfo implements Serializable {
     public String Game_name;
     public int streamer_count;
     public int view_number;
+    public String language;
 }

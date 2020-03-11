@@ -9,5 +9,5 @@ public class StreamerListItem implements Serializable {
     public String user_name;
     public String started_at;
     public String thumbnail_url;
-
+    public String language;
 }

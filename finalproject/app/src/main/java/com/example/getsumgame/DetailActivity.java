@@ -164,7 +164,10 @@ public class DetailActivity extends AppCompatActivity implements
     }
 
     private void populateLoadStreamerDetails(){
-        if(this.streamViewModel.getStreamData().getValue() != null) {
+        if(
+                this.streamViewModel.getStreamData().getValue() != null &&
+                !this.streamViewModel.getStreamData().getValue().isEmpty()
+        ) {
             // Just get first item
             this.streamerDetails = this.streamViewModel.getStreamData().getValue().get(0);
 
@@ -172,6 +175,7 @@ public class DetailActivity extends AppCompatActivity implements
         }else{
             Log.e(TAG, "Pushed new data, but repo still has null reference");
             Log.e(TAG, "Cannot populate Text Views!");
+            this.politelyExit();
         }
     }
 
@@ -324,13 +328,19 @@ public class DetailActivity extends AppCompatActivity implements
 
         /* ------ Call Setup Subroutines ------ */
 
-        this.pushViewModel();
-        this.populateLoadStreamerDetails();
-        this.setUpGraphics();
-        this.populateTextViews();
-        this.startObservers();
-        this.streamPreview.setOnClickListener(this);
-        this.pullOnRepos();
+        try {
+            this.pushViewModel();
+            this.populateLoadStreamerDetails();
+            this.setUpGraphics();
+            this.populateTextViews();
+            this.startObservers();
+            this.streamPreview.setOnClickListener(this);
+            this.pullOnRepos();
+            setErrorCode(this.getIntent(), ERROR_CODE_OK);
+            this.setResult(RESULT_OK, this.getIntent());
+        }catch(IllegalStateException e){
+            Log.d(TAG, "Exitting!");
+        }
     }
 
     /*
@@ -340,8 +350,9 @@ public class DetailActivity extends AppCompatActivity implements
     public void politelyExit(){
         setErrorCode(this.getIntent(), ERROR_CODE_BAD);
         this.setResult(RESULT_CANCELED, this.getIntent());
-        this.navigateUpToFromChild(this, this.getIntent());
+        this.finish();
         Log.e(TAG, "I need more data to start!");
+        throw new IllegalStateException("Exitting! Not Enough Data!");
     }
 
     @Override
