@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class DetailActivity extends AppCompatActivity implements
@@ -189,23 +190,25 @@ public class DetailActivity extends AppCompatActivity implements
     }
 
     private void populateHoursStremaingText(){
-        Date prev = null;
+        Date prev;
 
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
-
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ROOT);
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
         try {
             prev = format.parse(this.streamerDetails.started_at);
         } catch (ParseException e) {
             Log.e(TAG, "Could not parse!");
             Log.e(TAG, e.toString());
-        }
-
-        if(prev == null){
             prev = new Date();
         }
+        Log.d(TAG, "Previous Time: " + prev.toString());
 
         Date now = new Date();
+        Log.d(TAG, "Current Time: " + now.toString());
+
         Date difference = new Date(now.getTime() - prev.getTime());
+        Log.d(TAG, "Difference: " + difference.toString());
+
         String hours = getHours(difference.getTime());
         String text = getResources().getString(R.string.stream_span);
 
